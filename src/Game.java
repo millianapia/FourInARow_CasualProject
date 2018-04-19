@@ -21,6 +21,7 @@ public class Game extends JFrame {
     public static final int EMPTY = 0;
     public static final int PLAYER1 = 1;
     public static final int PLAYER2 = 2;
+    public static int numberOfPlayers;
 
     // Name-constants to represent the various states of the game
     public static final int PLAYING = 0;
@@ -41,6 +42,22 @@ public class Game extends JFrame {
     // ------------------------------------------------------------
     /* contructor */
     public Game() {
+        //Choice between AI and pvp
+        Object[] options = {"Player vs Player", "Player vs AI"};
+        int n = JOptionPane.showOptionDialog(this, "Gamemode", "Connect Four",
+                JOptionPane.YES_NO_CANCEL_OPTION,
+                JOptionPane.QUESTION_MESSAGE,
+                null,
+                options,
+                options[1]);
+        if (n == 0) {
+            numberOfPlayers = 2;
+        } else {
+            numberOfPlayers = 1;
+        }
+
+
+        //Start game
         initGame();
         gamepanel = new gamePanel[rows][columns];
         mouseadapter = new MouseAdapter() {
