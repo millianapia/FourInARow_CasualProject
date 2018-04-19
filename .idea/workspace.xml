@@ -17,6 +17,11 @@
     <configuration default="true" type="Applet" factoryName="Applet">
       <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
     </configuration>
+    <configuration name="Game" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Game" />
+      <module name="k-k-project" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+    </configuration>
     <configuration default="true" type="Application" factoryName="Application">
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
     </configuration>
@@ -72,6 +77,11 @@
       <option name="PROGRAM_PARAMETERS" />
       <method />
     </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.Game" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="masterDetails">
     <states>
