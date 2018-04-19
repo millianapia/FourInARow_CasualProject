@@ -45,7 +45,7 @@ public class Game extends JFrame {
         gamepanel = new gamePanel[rows][columns];
         mouseadapter = new MouseAdapter() {
             @Override
-            public void mouseClicked(MouseEvent me) {
+            public void mousePressed(MouseEvent me) {
                 gamePanel panel = (gamePanel) me.getSource();
                 int y = panel.column;
                 int x = availableRow(y);
