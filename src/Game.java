@@ -30,7 +30,6 @@ public class Game extends JFrame {
     public int currentPlayer;
     public int rows = 6, columns = 7, AmountToWin = 4;
     public int[][] board = new int[rows][columns];
-    public Scanner input = new Scanner(System.in); // the input Scanner
     MouseAdapter mouseadapter;
     gamePanel[][] gamepanel;
 
@@ -67,8 +66,10 @@ public class Game extends JFrame {
                 }
             }
         };
+
         JPanel p1 = new JPanel();
         p1.setLayout(new GridLayout(rows, columns));
+        this.setTitle("Connect Four");
 
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < columns; j++) {
