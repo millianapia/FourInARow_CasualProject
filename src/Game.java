@@ -29,7 +29,7 @@ public class Game extends JFrame {
     // The game board and the game status
     public int currentState = 1;
     public int currentPlayer;
-    public int rows = 6, columns = 7, AmountToWin = 4;
+    public int rows = 6, columns = 7;
     public int[][] board = new int[rows][columns];
     MouseAdapter mouseadapter;
     gamePanel[][] gamepanel;
@@ -39,9 +39,7 @@ public class Game extends JFrame {
         new Game();
     }
 
-    // ------------------------------------------------------------
-    /* contructor */
-    public Game() {
+    public int checkPlayerAmount(){
         //Choice between AI and pvp
         Object[] options = {"Player vs Player", "Player vs AI"};
         int n = JOptionPane.showOptionDialog(this, "Gamemode", "Connect Four",
@@ -56,34 +54,22 @@ public class Game extends JFrame {
             numberOfPlayers = 1;
         }
 
+        return numberOfPlayers;
+    }
 
+    // ------------------------------------------------------------
+    /* contructor */
+    public Game() {
         //Start game
         initGame();
         gamepanel = new gamePanel[rows][columns];
-        mouseadapter = new MouseAdapter() {
-            @Override
-            public void mousePressed(MouseEvent me) {
-                gamePanel panel = (gamePanel) me.getSource();
-                int y = panel.column;
-                int x = availableRow(y);
-                if (x == -1)
-                    return;
-
-                board[x][y] = currentPlayer;
-                if (currentPlayer == PLAYER1)
-                    currentPlayer = PLAYER2;
-                else
-                    currentPlayer = PLAYER1;
-                gamepanel[x][y].repaint();
-
-                if (checkForResult(currentPlayer) == 1) {
-                    showResult(currentPlayer);
-                } else if (checkForResult(currentPlayer) == 2) {
-                    showResult(currentPlayer);
-                }
-            }
-        };
-
+        if(numberOfPlayers == 2){
+            play();
+        }
+        else{
+            AIPlay();
+        }
+        // --------------------------------
         JPanel p1 = new JPanel();
         p1.setLayout(new GridLayout(rows, columns));
         this.setTitle("Connect Four");
@@ -104,6 +90,69 @@ public class Game extends JFrame {
 
     }
 
+    public void play(){
+        mouseadapter = new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent me) {
+                gamePanel panel = (gamePanel) me.getSource();
+                int y = panel.column;
+                int x = availableRow(y);
+                if (x == -1)
+                    return;
+
+                board[x][y] = currentPlayer;
+
+                if (currentPlayer == PLAYER1)
+                    currentPlayer = PLAYER2;
+                else
+                    currentPlayer = PLAYER1;
+                gamepanel[x][y].repaint();
+
+                if (checkForResult(currentPlayer) == 1) {
+                    showResult(currentPlayer);
+                } else if (checkForResult(currentPlayer) == 2) {
+                    showResult(currentPlayer);
+                }
+            }
+        };
+    }
+
+    public void AIPlay(){
+        AI ai = new AI();
+        mouseadapter = new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent me) {
+                int x;
+                int y;
+                if(currentPlayer == PLAYER1) {
+                    gamePanel panel = (gamePanel) me.getSource();
+                    y = panel.column;
+                    x = availableRow(y);
+                }
+                else{
+                    y = ai.move();
+                    x = availableRow(y);
+                }
+
+                if (x == -1)
+                    return;
+                board[x][y] = currentPlayer;
+
+                if (currentPlayer == PLAYER1)
+                    currentPlayer = PLAYER2;
+                else
+                    currentPlayer = PLAYER1;
+                gamepanel[x][y].repaint();
+
+                if (checkForResult(currentPlayer) == 1) {
+                    showResult(currentPlayer);
+                } else if (checkForResult(currentPlayer) == 2) {
+                    showResult(currentPlayer);
+                }
+            }
+        };
+    }
+
     // ------------------------------------------------------------
     public void initGame() {
         for (int row = 0; row < rows; ++row) {
@@ -111,6 +160,7 @@ public class Game extends JFrame {
                 board[row][col] = EMPTY; // all cells empty
             }
         }
+        numberOfPlayers = checkPlayerAmount();
         currentState = PLAYING; // ready to play
         currentPlayer = PLAYER1; // player 1 plays first
     }
@@ -149,11 +199,9 @@ public class Game extends JFrame {
 
         JFrame frameShowResult = new JFrame();
         if (winnerPlayer == 1) {
-            JOptionPane.showMessageDialog(frameShowResult, "\nWinner : YELLOW", "End Game",
-                    JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(frameShowResult, "\nWinner : YELLOW", "End Game", JOptionPane.INFORMATION_MESSAGE);
         } else {
-            JOptionPane.showMessageDialog(frameShowResult, "\nWinner : RED", "End Game",
-                    JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(frameShowResult, "\nWinner : RED", "End Game", JOptionPane.INFORMATION_MESSAGE);
         }
     }
 
@@ -169,6 +217,7 @@ public class Game extends JFrame {
     }
 
     // ------------------------------------------------------------
+    // Creates the gamepanel and paints it
     class gamePanel extends JPanel {
         int row, column;
 
@@ -179,7 +228,6 @@ public class Game extends JFrame {
             this.setPreferredSize(new Dimension(100, 100)); // try commenting out this line!
         }
 
-        // ------------------------------------------------------------
         public void paintComponent(Graphics g) {
             super.paintComponent(g);
             Color c = board[row][column] == EMPTY ? Color.WHITE
