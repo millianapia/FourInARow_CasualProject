@@ -10,7 +10,7 @@ import java.awt.event.ActionListener;
 public final class game extends JFrame
 {
     private int size = 7;                             // Board size
-    private int playerOrder=0;                    // First player 1 will play the game
+    private int playerOrder=0;                    // First player 1 will PVPPlay the game
     private int numberOfPlayer;                   // withChip.Player number
     private static int livingCellNumber=0;        // Number of living cells
 
