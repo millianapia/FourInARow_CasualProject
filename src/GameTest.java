@@ -4,6 +4,7 @@ import org.junit.Test;
 
 public class GameTest {
 
+    //tests horizontal
     @Test
     public void winnerTestHorizontal() {
         Game game = new Game();
@@ -25,6 +26,7 @@ public class GameTest {
         Assert.assertTrue(0 == game.checkForResult(1, board));
     }
 
+    //tests vertical
     @Test
     public void winnerTestVertical() {
         Game game = new Game();
@@ -36,7 +38,7 @@ public class GameTest {
         board[4][1] = 1;
         Assert.assertTrue(1 == game.checkForResult(1, board));
     }
-
+    //tests diagonal one way
     @Test
     public void winnerTestDiagonal1() {
         int[][] board = new int[6][7];
@@ -49,6 +51,7 @@ public class GameTest {
         Assert.assertTrue(1 == game.checkForResult(1, board));
     }
 
+    //tests diagonal the other way
     @Test
     public void winnerTestDiagonal2() {
         int[][] board = new int[6][7];
@@ -60,4 +63,5 @@ public class GameTest {
         board[4][1] = 1;
         Assert.assertTrue(1 == game.checkForResult(1, board));
     }
+
 }
