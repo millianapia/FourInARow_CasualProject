@@ -30,10 +30,7 @@ public class Game extends JFrame {
 	MouseAdapter mouseadapter;
 	gamePanel[][] gamepanel;
 
-	// ------------------------------------------------------------
-	public static void main(String[] args) {
-		new Game();
-	}
+
 
 	public int checkPlayerAmount() {
 		// Choice between AI and pvp

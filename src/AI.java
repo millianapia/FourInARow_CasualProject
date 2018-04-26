@@ -1,7 +1,7 @@
 import javax.swing.*;
 import java.util.Random;
 
-public class AI extends JFrame implements Players {
+public class AI extends JFrame {
 
     public int move(){
         Random rand = new Random();
