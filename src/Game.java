@@ -125,7 +125,7 @@ public class Game extends JFrame {
 						x = availableRow(y);
 					}
 				}
-				if(x == -1)
+				if (x == -1)
 					return;
 
 				board[x][y] = currentPlayer;
@@ -193,9 +193,11 @@ public class Game extends JFrame {
 		if (winnerPlayer == 1) {
 			JOptionPane.showMessageDialog(frameShowResult, "\nWinner : YELLOW", "End Game",
 					JOptionPane.INFORMATION_MESSAGE);
-		} else {
+			System.exit(0);
+		} else if (winnerPlayer == 2) {
 			JOptionPane.showMessageDialog(frameShowResult, "\nWinner : RED", "End Game",
 					JOptionPane.INFORMATION_MESSAGE);
+			System.exit(0);
 		}
 	}
 
