@@ -50,7 +50,7 @@ public class Game extends JFrame {
 	/* contructor */
 	public Game() {
 		// Start game
-		initGame();
+		initGame(board);
 		gamepanel = new gamePanel[rows][columns];
 		if (numberOfPlayers == 2) {
 			play();
@@ -96,9 +96,9 @@ public class Game extends JFrame {
 					currentPlayer = PLAYER1;
 				gamepanel[x][y].repaint();
 
-				if (checkForResult(currentPlayer) == 1) {
+				if (checkForResult(currentPlayer, board) == 1) {
 					showResult(currentPlayer);
-				} else if (checkForResult(currentPlayer) == 2) {
+				} else if (checkForResult(currentPlayer, board) == 2) {
 					showResult(currentPlayer);
 				}
 			}
@@ -133,9 +133,9 @@ public class Game extends JFrame {
 					currentPlayer = PLAYER1;
 				gamepanel[x][y].repaint();
 
-				if (checkForResult(currentPlayer) == 1) {
+				if (checkForResult(currentPlayer, board) == 1) {
 					showResult(currentPlayer);
-				} else if (checkForResult(currentPlayer) == 2) {
+				} else if (checkForResult(currentPlayer, board) == 2) {
 					showResult(currentPlayer);
 				}
 			}
@@ -143,7 +143,7 @@ public class Game extends JFrame {
 	}
 
 	// ------------------------------------------------------------
-	public void initGame() {
+	public void initGame(int[][] board) {
 		for (int row = 0; row < rows; ++row) {
 			for (int col = 0; col < columns; ++col) {
 				board[row][col] = EMPTY; // all cells empty
@@ -155,10 +155,10 @@ public class Game extends JFrame {
 	}
 
 	// ------------------------------------------------------------
-	private int checkForResult(int player) {
+	public int checkForResult(int player, int[][] board) {
 		final int EMPTY_SLOT = 0;
-		for (int r = 0; r < rows; r++) { // iterate rows, bottom to top
-			for (int c = 0; c < columns; c++) { // iterate columns, left to right
+		for (int r = 0; r < rows; r++) { //rows
+			for (int c = 0; c < columns; c++) { //columns
 				player = board[r][c];
 				if (player == EMPTY_SLOT)
 					continue; // don't check empty slots
@@ -179,7 +179,7 @@ public class Game extends JFrame {
 				}
 			}
 		}
-		return EMPTY_SLOT; // no winner found
+		return EMPTY_SLOT; //No winner found
 	}
 
 	// -------------------------------------------
