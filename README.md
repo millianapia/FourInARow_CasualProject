@@ -1,1 +1,3 @@
-# k-k-project
+# Simple visual four in a row project
+
+
